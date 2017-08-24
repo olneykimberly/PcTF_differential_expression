@@ -20,19 +20,21 @@ Code for analyzing RNAseq data from cell lines expressing PcTF, and code for mak
 15. Index BAM files
 16. Identify genes that differentially expressed 
 
---------------------------------------
- Publicly available packages:
- --------------------------------------
+
+### Publicly available packages:
+
       fastqc            http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
       Trimmomatic       http://www.usadellab.org/cms/?page=trimmomatic
       STAR		https://github.com/alexdobin/STAR
       bamtools          https://github.com/pezmaster31/bamtools
       cuffdiff          http://cole-trapnell-lab.github.io/cufflinks/cuffdiff/     
 --------------------------------------
- 1. Download data
+RNAseq processing for differential expression analysis 
 --------------------------------------
-	GEO accession number
-	'$wget ftp://GEO/path'
+ ### 1. Download data
+GEO accession number
+
+			$wget ftp://GEO/path
 --------------------------------------
  2. Create and view fastqc reports
 --------------------------------------
