@@ -1,12 +1,6 @@
 # PcTF differential expression
 Code for analyzing RNAseq data from cell lines expressing PcTF, and code for making figures
 
-
---------------------------------------
-Overview
---------------------------------------
-	RNAseq data processing overview: 
-
 --------------------------------------
  Contents:
 --------------------------------------
