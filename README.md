@@ -31,13 +31,12 @@ Code for analyzing RNAseq data from cell lines expressing PcTF, and code for mak
 --------------------------------------
 RNAseq processing for differential expression analysis 
 --------------------------------------
- ### 1. Download data
+### 1. Download data
 GEO accession number
 
 			$wget ftp://GEO/path
---------------------------------------
- 2. Create and view fastqc reports
---------------------------------------
+
+### 2. Create and view fastqc reports
  Fastqc reads raw sequence data from high throughput sequencers and runs a set of quality checks to produce a report. 
  Best reports are those whose "per base sequence quality" are included in the green area of the graph & kmer content is good or average.
 
@@ -48,14 +47,9 @@ GEO accession number
  Reports were saved in fastq_files directory in Project /Project/fastq_files
  This command will create two outputs: an .html file & an .zip file. Will output sampleID_fastqc.html and sampleID_fastqc.zip files
 
---------------------------------------
- 3. Trim raw fastq files for quality and to remove adaptors 
---------------------------------------
- 	Trimmomatic performs a variety of useful trimming tasks for illumina paired-end and single ended data.T
- 	The selection of trimming steps and their associated parameters are supplied on the command line.
- 
- 	For single-ended data, one input and one output file are specified, plus the filtering options. For paired-end data, two input files are specified (one file for each pair-end), and 4 output files, 2 for the 'paired' output where both reads survived the processing, and 2 for corresponding 'unpaired' output where a read survived, but the partner read did not.
- For this project, we have single-ended data.
+### 3. Trim raw fastq files for quality and to remove adaptors 
+Trimmomatic performs a variety of useful trimming tasks for illumina paired-end and single ended data.The selection of trimming steps and their associated parameters are supplied on the command line.
+
 
  The current trimming steps are:
  ILLUMINACLIP: Cut adapter and other illumina-specific sequences from the read.
