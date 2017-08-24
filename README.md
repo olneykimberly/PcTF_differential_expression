@@ -33,7 +33,7 @@ Code for analyzing RNAseq data from cell lines expressing PcTF, and code for mak
  1. Download data
 --------------------------------------
 	GEO accession number
-		$wget ftp://GEO/path
+	'''$wget ftp://GEO/path
 --------------------------------------
  2. Create and view fastqc reports
 --------------------------------------
