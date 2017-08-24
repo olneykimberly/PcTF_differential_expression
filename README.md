@@ -52,68 +52,51 @@ Code for analyzing RNAseq data from cell lines expressing PcTF, and code for mak
 
 --------------------------------------
  Publicly available packages:
-       fastqc                                                  http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
-       Trimmomatic                                             http://www.usadellab.org/cms/?page=trimmomatic
-		STAR											        https://github.com/alexdobin/STAR
-       bamtools                                                https://github.com/pezmaster31/bamtools
-       cuffdiff                                                http://cole-trapnell-lab.github.io/cufflinks/cuffdiff/
+      
+      fastqc            http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
+      Trimmomatic       http://www.usadellab.org/cms/?page=trimmomatic
+      STAR		https://github.com/alexdobin/STAR
+      bamtools          https://github.com/pezmaster31/bamtools
+      cuffdiff          http://cole-trapnell-lab.github.io/cufflinks/cuffdiff/
    
 
 --------------------------------------
  Install packages 
 -------------------------------------
- Packages installed on my home directory on NGCC in my tools folder  /tools
- STAR-master										            https://github.com/alexdobin/STAR
- Trimmomatic                                                   http://www.usadellab.org/cms/?page=trimmomatic
- CuffDiff
+	STAR-master     https://github.com/alexdobin/STAR
+ 	Trimmomatic     http://www.usadellab.org/cms/?page=trimmomatic
+	CuffDiff
 
 --------------------------------------
  1. Download data
 --------------------------------------
- In sra (sequence read archive, as know as short-read archive) format 
- Include GEO accession number 
- Samples downloaded were saved in Project directory /Project/
+	GEO accession number 
  
- Example command: $wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRR1850937.sra
- wget                                                          stands for "web get"
- ftp                                                           stands for File transfer program
- sampleID.sra                                                  path to where the samples are located and the sampleID
-
- SBATCH script - 
-sbatch NameOfSBATCHscript.sh 
+	$wget ftp://GEO/path
+ 	wget                                                          stands for "web get"
+ 	ftp                                                           stands for File transfer program
+ 	sampleID                                                 path to where the samples are located and the sampleID
 
 --------------------------------------
- 3. Create and view fastqc reports
+ 2. Create and view fastqc reports
 --------------------------------------
  Fastqc reads raw sequence data from high throughput sequencers and runs a set of quality checks to produce a report. 
  Best reports are those whose "per base sequence quality" are included in the green area of the graph & kmer content is good or average.
 
- Example command: $fastqc sampleID.fastq
- fastqc                                                        Babraham bioinformatics program that that checks for quality of reads 
- sampleID.fastq                                                path and name of sampleID in fastq format, may also be in fastq.gz format
+ 	Example command: $fastqc sampleID.fastq
+	 fastqc                                                        Babraham bioinformatics program that that checks for quality of reads 
+ 	sampleID.fastq                                                path and name of sampleID in fastq format, may also be in fastq.gz format
 
  Reports were saved in fastq_files directory in Project /Project/fastq_files
  This command will create two outputs: an .html file & an .zip file. Will output sampleID_fastqc.html and sampleID_fastqc.zip files
 
- SBATCH script -
-sbatch NameOfSBATCHscript.sh 
-
- Move fastqc reports to desktop to visualize them as you can't open html in a terminal.
- Open new terminal as this will not work if logged into a HPC (high performance computing) cluster
- Example command: $scp user@saguaro.a2c2.asu.edu:/Project/fastq_files/sampleID_raw_fastqc.html /Users/Desktop/
- scp                                                           secure copy  (linux command)                   
- /path/to/fastqc.html                                          path to where the files are located
- /path/where/you/want/fastqc.html                              path to where you would like to copy the files to 
-
- Reports were saved in Desktop in folder /raw_FASTQC
 --------------------------------------
- 4. Trim fastq files for quality and to remove adaptors 
+ 3. Trim raw fastq files for quality and to remove adaptors 
 --------------------------------------
- In this case, fastq files need to be trimmed because the kmer count is poor, meaning that the RNA-seq has too many adapter sequences that need to be cut.
- To correct for this, trim the reads using Trimmomatic. Trimmomatic performs a variety of useful trimming tasks for illumina paired-end and single ended data.T
- The selection of trimming steps and their associated parameters are supplied on the command line.
+ 	Trimmomatic performs a variety of useful trimming tasks for illumina paired-end and single ended data.T
+ 	The selection of trimming steps and their associated parameters are supplied on the command line.
  
- For single-ended data, one input and one output file are specified, plus the filtering options. For paired-end data, two input files are specified (one file for each pair-end), and 4 output files, 2 for the 'paired' output where both reads survived the processing, and 2 for corresponding 'unpaired' output where a read survived, but the partner read did not.
+ 	For single-ended data, one input and one output file are specified, plus the filtering options. For paired-end data, two input files are specified (one file for each pair-end), and 4 output files, 2 for the 'paired' output where both reads survived the processing, and 2 for corresponding 'unpaired' output where a read survived, but the partner read did not.
  For this project, we have single-ended data.
 
  The current trimming steps are:
@@ -132,7 +115,7 @@ sbatch NameOfSBATCHscript.sh
  A few fastq files were tested to determine the use of phred33 or phred 64. Phred33 was chosen due to the amount of bases ramining after trimming.
  Other parameters tested but not found to be ideal are sliding4:30 leading30 trailing40, sliding4:40 leading10 trailing25, sliding 4:40 leading30 trailing 40
  
- Command: $java -jar /path/to/trimmomatic-0.36.jar SE -phred33 input.fq.gz output.fq.gz ILLUMINACLIP:/adapters/TruSeq3-SE.fa:2:30:10 LEADING:10 TRAILING:25 SLIDINGWINDOW:4:30 MINLEN:50
+ $java -jar /path/to/trimmomatic-0.36.jar SE -phred33 input.fq.gz output.fq.gz ILLUMINACLIP:/adapters/TruSeq3-SE.fa:2:30:10 LEADING:10 TRAILING:25 SLIDINGWINDOW:4:30 MINLEN:50
  Example Command: java -jar /home/sbrotman/GETx_Brain/00_tools/Trimmomatic-0.36/trimmomatic-0.36.jar SE -phred33 /mnt/storage/public/dbgap-8834/femalebrain/SRR598768_1.fastq /home/sbrotman/GETx_Brain/02_raw/trim_female/SRR598768_1_trim_1.fastq ILLUMINACLIP:/home/sbrotman/GETx_Brain/00_tools/Trimmomatic-0.36/adapters/TruSeq3-SE.fa:2:30:10 LEADING:10 TRAILING:25 SLIDINGWINDOW:4:30 MINLEN:50
  java                                                          indicates that this is a java program and will require java in order to run
  -jar                                                          jar file to follow
