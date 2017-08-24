@@ -6,20 +6,6 @@ Code for analyzing RNAseq data from cell lines expressing PcTF, and code for mak
 Overview
 --------------------------------------
 	RNAseq data processing overview: 
-			Raw reads were mapped using STAR read aligner. This was done to achieve high sensitivity to both SNPs and, indels. Specifically, the STAR 2-pass method (Pär G Engström et al.) using the suggested protocol with the default parameters.  
-			The STAR 2-pass approach detects splice junctions in a first alignment run and then those are used to guide the final alignment. STAR uses genome index files that must be saved in unique directories.
-			The first pass alignment job is then executed and splice junctions are indentified. A new index is then created using splice junction information contained in the file SJ.out.tab from the first pass. 
-			The resulting index is then used to produce the final alignments. The above step produces a BAM file, which we then put through the suggested GATK's best practices steps: adding read group information, sorting, marking duplicates and indexing.
-			Then, using GATK tool SplitNCigarReads, we can split the reads into exon segments (getting rid of Ns but maintaining grouping information) and hard-clip any sequences overhanging into the intronic regions. 
-			Overhang regions that have mismatch greater than the threshold are clipped to reduce the number of the called false variants. AT SplitNCigarReads, mapping qualities are also reassigned because STAR assigns good alignments a MAPQ of 255 which is meaningless to GATK. 
-           To correct for this, GATK’s ReassignOneMappingQuality read filter, is used to reassign all good alignments to the default value of 60. To identify differential gene expression cuffdiff is run on all pairwise comparisons. 
-           To identify allele expression we will need to generate a variant call fille from the individual bam files. Variant calling is then accomplished using GATK's HaplotypeCaller tool. 
-           The HaplotypeCaller tool takes into account the information about intron-exon split regions that is embedded in the BAM file by SplitNCigarReads. The HaplotypeCaller tool will perform “dangling head merging” operations 
-           and avoids using soft-clipped bases to minimize false positive and false negative calls. From here we will filter the VCF using bcftools to remove indels and to only include biallelic sites. Next we will use
-           GATK's SelectVariants to slipt our merged VCF to have a VCF per individual. This is down to speed up down stream analysis as programs won't have to filter through a very large VCF containing all the individuals as this is not necessary for our needs. 
-           Using SnpEff's SnpSift we will filter the individual VCF to only include heterozygous sites as homozygous sites will be uninformative for inferring biased allele expression. Finally we will run GATK's ASEReadCounter to get allele count information for 
-           for each individual at each heterozygous site for the whole genome. 
-
 
 --------------------------------------
  Contents:
