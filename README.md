@@ -17,7 +17,7 @@ Overview
 	5. Obtain reference genome and gene annotation files
 	6. Generate genome indexes
 	7. STAR: map transcript reads to the reference genome and identify splice junctions 
-        8. check quality of raw BAM files
+	8. check quality of raw BAM files
 	9. Sort BAM files, to be in the same order as the reference for downstream analysis 
 	10. check quality of sorted BAM files
 	11. Mark duplicates, duplicates will not be removed but will be marked for quality checks
