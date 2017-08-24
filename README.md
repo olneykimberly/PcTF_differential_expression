@@ -23,31 +23,17 @@ Code for analyzing RNAseq data from cell lines expressing PcTF, and code for mak
 
 --------------------------------------
  Publicly available packages:
-      
+ --------------------------------------
       fastqc            http://www.bioinformatics.babraham.ac.uk/projects/fastqc/
       Trimmomatic       http://www.usadellab.org/cms/?page=trimmomatic
       STAR		https://github.com/alexdobin/STAR
       bamtools          https://github.com/pezmaster31/bamtools
-      cuffdiff          http://cole-trapnell-lab.github.io/cufflinks/cuffdiff/
-   
-
---------------------------------------
- Install packages 
--------------------------------------
-	STAR-master     https://github.com/alexdobin/STAR
- 	Trimmomatic     http://www.usadellab.org/cms/?page=trimmomatic
-	CuffDiff
-
+      cuffdiff          http://cole-trapnell-lab.github.io/cufflinks/cuffdiff/     
 --------------------------------------
  1. Download data
 --------------------------------------
-	GEO accession number 
- 
+	GEO accession number
 	$wget ftp://GEO/path
- 	wget                                                          stands for "web get"
- 	ftp                                                           stands for File transfer program
- 	sampleID                                                 path to where the samples are located and the sampleID
-
 --------------------------------------
  2. Create and view fastqc reports
 --------------------------------------
