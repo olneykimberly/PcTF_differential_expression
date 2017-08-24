@@ -2,20 +2,10 @@
 Code for analyzing RNAseq data from cell lines expressing PcTF, and code for making figures
 
 
- Patterns of gene expression in cancer cell types 
-		By Kimberly C. Olney
-
- Last updated: November 9th 2016
-
 --------------------------------------
- Overview:
- 			Identifying patterns of gene expression in genes subject to and genes escaping X chromosome inactivation from different brain tissue across males and females
-
- Samples information:
-			GTEx Brain Tissue samples
-
-
- RNAseq data processing overview: 
+Overview
+--------------------------------------
+	RNAseq data processing overview: 
 			Raw reads were mapped using STAR read aligner. This was done to achieve high sensitivity to both SNPs and, indels. Specifically, the STAR 2-pass method (Pär G Engström et al.) using the suggested protocol with the default parameters.  
 			The STAR 2-pass approach detects splice junctions in a first alignment run and then those are used to guide the final alignment. STAR uses genome index files that must be saved in unique directories.
 			The first pass alignment job is then executed and splice junctions are indentified. A new index is then created using splice junction information contained in the file SJ.out.tab from the first pass. 
@@ -33,7 +23,7 @@ Code for analyzing RNAseq data from cell lines expressing PcTF, and code for mak
 
 --------------------------------------
  Contents:
- --------------------------------------
+--------------------------------------
  	1. Download or obtain data 
 	2. FastQC to check the quality of the raw reads
 	3. Trim fastq files for quality and to remove adaptors. 
