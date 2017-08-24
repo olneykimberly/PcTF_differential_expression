@@ -1,25 +1,24 @@
 # PcTF differential expression
 Code for analyzing RNAseq data from cell lines expressing PcTF, and code for making figures
 
---------------------------------------
- Contents:
---------------------------------------
- 	1. Download or obtain data 
-	2. FastQC to check the quality of the raw reads
-	3. Trim fastq files for quality and to remove adaptors. 
-	4. FastQC to check the quality of the trimmed reads
-	5. Obtain reference genome and gene annotation files
-	6. Generate genome indexes
-	7. STAR: map transcript reads to the reference genome and identify splice junctions 
-	8. check quality of raw BAM files
-	9. Sort BAM files, to be in the same order as the reference for downstream analysis 
-	10. check quality of sorted BAM files
-	11. Mark duplicates, duplicates will not be removed but will be marked for quality checks
-	12. check quality of mark duplicates BAM files
-	13. Add read groups to BAM files, this done to keep the sample ids organized when creating the merged vcf file
-	14. check quality of add read group BAM files
-	15. Index BAM files
-	16. Identify genes that differentially expressed 
+
+### Contents:
+1. Download or obtain data 
+2. FastQC to check the quality of the raw reads
+3. Trim fastq files for quality and to remove adaptors. 
+4. FastQC to check the quality of the trimmed reads
+5. Obtain reference genome and gene annotation files
+6. Generate genome indexes
+7. STAR: map transcript reads to the reference genome and identify splice junctions 
+8. check quality of raw BAM files
+9. Sort BAM files, to be in the same order as the reference for downstream analysis 
+10. check quality of sorted BAM files
+11. Mark duplicates, duplicates will not be removed but will be marked for quality checks
+12. check quality of mark duplicates BAM files
+13. Add read groups to BAM files, this done to keep the sample ids organized when creating the merged vcf file
+14. check quality of add read group BAM files
+15. Index BAM files
+16. Identify genes that differentially expressed 
 
 --------------------------------------
  Publicly available packages:
